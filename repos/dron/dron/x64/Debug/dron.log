@@ -1,0 +1,2 @@
+﻿dron.obj : error LNK2005: "int __cdecl double_point(void)" (?double_point@@YAHXZ) уже определен в 2_point.obj
+C:\Users\nikit\source\repos\dron\x64\Debug\dron.exe : fatal error LNK1169: обнаружен многократно определенный символ - один или более
