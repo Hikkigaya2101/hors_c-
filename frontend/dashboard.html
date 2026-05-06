@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель</title>
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+<div class="dashboard-layout">
+    <div class="sidebar">
+        <div class="logo-small">FlowCore.</div>
+        <div class="nav-menu">
+            <div class="nav-item" data-section="tasks">✅ Задачи</div>
+            <div class="nav-item" data-section="projects">📁 Проекты</div>
+            <div class="nav-item" data-section="team">👥 Команда</div>
+        </div>
+        <div class="user-tag">
+            <div>👤</div>
+            <div><span id="dashboard-user-name"></span><br><span id="dashboard-user-email"></span></div>
+            <button id="logout-btn" class="btn btn-outline btn-sm">Выйти</button>
+        </div>
+    </div>
+    <div class="main-area" id="dynamic-content"></div>
+</div>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
