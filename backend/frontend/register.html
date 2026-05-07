@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация — FlowCore</title>
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/register.css">
+</head>
+<body>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="logo-auth">FlowCore.</div>
+        <h2>Создать аккаунт</h2>
+        <div class="form-group">
+            <label>Имя и фамилия</label>
+            <div class="input-icon"><span>👤</span><input type="text" id="reg-name" placeholder="Алексей Иванов"></div>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <div class="input-icon"><span>📧</span><input type="email" id="reg-email" placeholder="alex@flowcore.com"></div>
+        </div>
+        <div class="form-group">
+            <label>Пароль</label>
+            <div class="input-icon"><span>🔒</span><input type="password" id="reg-password" placeholder="минимум 6 символов"></div>
+        </div>
+        <div class="form-group">
+            <label>Подтверждение пароля</label>
+            <div class="input-icon"><span>✓</span><input type="password" id="reg-password2" placeholder="повторите пароль"></div>
+        </div>
+        <button class="btn btn-primary" id="do-register" style="width:100%">Зарегистрироваться</button>
+        <p style="text-align:center; margin-top:1.5rem;">
+            Уже есть аккаунт? <a href="/login/" style="color: var(--accent-green);">Войти</a>
+        </p>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/static/js/register.js"></script>
+</body>
+</html>
