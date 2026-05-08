@@ -5,6 +5,10 @@ from django.contrib.auth import authenticate, login, logout
 from .models import User
 from .serializers import UserSerializer
 
+from django.contrib.auth import authenticate, login
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -19,6 +23,18 @@ class UserViewSet(viewsets.ModelViewSet):
             login(request, user)
             return Response(UserSerializer(user).data)
         return Response({'error': 'Invalid credentials'}, status=400)
+
+    @action(detail=False, methods=['post'])
+    def register(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            # Хешируем пароль
+            user.set_password(request.data.get('password'))
+            user.save()
+            login(request, user)
+            return Response(UserSerializer(user).data)
+        return Response(serializer.errors, status=400)
 
     @action(detail=False, methods=['post'])
     def logout(self, request):

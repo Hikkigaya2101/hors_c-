@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Панель</title>
+    <title>Панель управления — FlowCore</title>
     <link rel="stylesheet" href="/static/css/common.css">
     <link rel="stylesheet" href="/static/css/dashboard.css">
 </head>
@@ -23,6 +23,68 @@
     </div>
     <div class="main-area" id="dynamic-content"></div>
 </div>
-<script src="/static/js/app.js"></script>
+
+<!-- Модальное окно для создания/редактирования проекта -->
+<div id="projectModal" class="modal">
+    <div class="modal-content modal-wide">
+        <h3 id="projectModalTitle">Создать проект</h3>
+        <input type="hidden" id="edit-project-id">
+        <div class="form-group"><label>Название проекта</label><input id="project-name" placeholder="Название"></div>
+        <div class="form-group"><label>Описание</label><textarea id="project-desc" rows="2" placeholder="Описание проекта"></textarea></div>
+        <div class="form-group"><label>Участники команды</label>
+            <select id="project-members" multiple size="4"></select>
+            <small>Удерживайте Ctrl для выбора нескольких</small>
+        </div>
+        <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
+            <button class="btn btn-outline" id="projectModalCancel">Отмена</button>
+            <button class="btn btn-primary" id="projectModalSave">Сохранить</button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для задачи внутри проекта -->
+<div id="projectTaskModal" class="modal">
+    <div class="modal-content">
+        <h3 id="projectTaskModalTitle">Новая задача</h3>
+        <input type="hidden" id="current-project-id">
+        <input type="hidden" id="edit-project-task-id">
+        <div class="form-group"><label>Название задачи</label><input id="project-task-title" placeholder="Название"></div>
+        <div class="form-group"><label>Описание</label><textarea id="project-task-desc" rows="2"></textarea></div>
+        <div class="form-group"><label>Исполнитель</label><select id="project-task-assignee"></select></div>
+        <div class="form-group"><label>Приоритет</label>
+            <select id="project-task-priority">
+                <option value="High">Высокий</option>
+                <option value="Medium">Средний</option>
+                <option value="Low">Низкий</option>
+            </select>
+        </div>
+        <div class="form-group"><label>Дедлайн</label><input type="date" id="project-task-deadline"></div>
+        <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+            <button class="btn btn-outline" id="projectTaskModalCancel">Отмена</button>
+            <button class="btn btn-primary" id="projectTaskModalSave">Сохранить</button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно чата -->
+<div id="chatModal" class="modal">
+    <div class="modal-content chat-modal">
+        <div class="chat-header">
+            <h3 id="chatTitle">Чат</h3>
+            <span class="close-chat">&times;</span>
+        </div>
+        <div id="chatMessages" class="chat-messages">
+            <!-- Сообщения загружаются сюда -->
+        </div>
+        <div class="chat-input-area">
+            <textarea id="chatMessageInput" rows="2" placeholder="Введите сообщение..."></textarea>
+            <button id="sendChatMessage" class="btn btn-primary">Отправить</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/static/js/dashboard.js"></script>
 </body>
 </html>

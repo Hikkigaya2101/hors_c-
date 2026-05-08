@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Вход</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход — FlowCore</title>
     <link rel="stylesheet" href="/static/css/common.css">
     <link rel="stylesheet" href="/static/css/login.css">
 </head>
@@ -11,22 +12,23 @@
     <div class="auth-card">
         <div class="logo-auth">FlowCore.</div>
         <h2>Вход в CRM</h2>
-        <div class="form-group"><label>Email / Логин</label><input type="text" id="login-username"></div>
-        <div class="form-group"><label>Пароль</label><input type="password" id="login-password"></div>
-        <button class="btn btn-primary" id="do-login">Войти</button>
+        <div class="form-group">
+            <label>Логин / Email</label>
+            <div class="input-icon"><span>📧</span><input type="text" id="login-username" placeholder="example@flowcore.com"></div>
+        </div>
+        <div class="form-group">
+            <label>Пароль</label>
+            <div class="input-icon"><span>🔒</span><input type="password" id="login-password" placeholder="••••••"></div>
+        </div>
+        <button class="btn btn-primary" id="do-login" style="width:100%">Войти</button>
         <div class="divider">или</div>
-        <button class="btn btn-outline" id="google-login">Google (демо)</button>
-        <p style="text-align:center;">Нет аккаунта? <a href="#" id="show-register">Регистрация</a></p>
-    </div>
-    <div id="register-form" style="display:none;" class="auth-card">
-        <h2>Регистрация</h2>
-        <input type="text" id="reg-name" placeholder="Имя"><br>
-        <input type="email" id="reg-email" placeholder="Email"><br>
-        <input type="password" id="reg-password" placeholder="Пароль"><br>
-        <button class="btn btn-primary" id="do-register">Зарегистрироваться</button>
-        <p><a href="#" id="show-login">Войти</a></p>
+        <button class="btn btn-outline" id="google-login" style="width:100%">Продолжить с Google</button>
+        <p style="text-align:center; margin-top:1.5rem;">
+            Нет аккаунта? <a href="/register/" id="register-link" style="color: var(--accent-green);">Зарегистрироваться</a>
+        </p>
     </div>
 </div>
-<script src="/static/js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/static/js/login.js"></script>
 </body>
 </html>
