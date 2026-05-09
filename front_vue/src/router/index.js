@@ -8,8 +8,15 @@ const routes = [
   {
     path: '/dashboard',
     component: () => import('../views/DashboardView.vue'),
-    meta: { requiresAuth: true }
-  }
+    meta: { requiresAuth: true }},
+
+    {
+  path: '/dashboard/project/:id',
+  component: () => import('../components/Projects/ProjectDetail.vue'),
+  meta: { requiresAuth: true }
+}
+  
+  
 ]
 
 const router = createRouter({
@@ -17,16 +24,17 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, from) => {
   const auth = useAuthStore()
   await auth.checkAuth()
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
-    next('/login')
-  } else if ((to.path === '/login' || to.path === '/register') && auth.isAuthenticated) {
-    next('/dashboard')
-  } else {
-    next()
+    return '/login'
   }
+  if ((to.path === '/login' || to.path === '/register') && auth.isAuthenticated) {
+    return '/dashboard'
+  }
+  // возвращаем true или undefined для продолжения
+  return true
 })
 
 export default router

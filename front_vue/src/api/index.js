@@ -112,6 +112,7 @@ export async function fetchUsers() {
 }
 
 // ========== ЧАТЫ ==========
+// Чаты проектов
 export async function fetchProjectMessages(projectId) {
   const res = await api.get(`/tasks/projects/${projectId}/messages/`)
   return res.data
@@ -122,6 +123,7 @@ export async function sendProjectMessage(projectId, text) {
   return res.data
 }
 
+// Чаты задач
 export async function fetchTaskMessages(taskId) {
   const res = await api.get(`/tasks/tasks/${taskId}/messages/`)
   return res.data

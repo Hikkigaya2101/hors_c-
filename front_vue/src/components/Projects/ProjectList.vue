@@ -15,30 +15,47 @@
         <div class="card-actions">
           <button class="btn btn-outline btn-sm" @click="openEditModal(project)">✏️</button>
           <button class="btn btn-outline btn-sm" @click="deleteProject(project.id)">🗑️</button>
-          <button class="btn btn-outline btn-sm" @click="openProject(project.id)">📋 Открыть</button>
+          <!--button class="btn btn-outline btn-sm" @click="openProject(project.id)">📋 Открыть</button-->
+          <button class="btn btn-outline btn-sm" @click="openTaskModalForProject(project.id)">➕ Задача</button>
+<button class="btn btn-outline btn-sm" @click="chatStore.openProjectChat(project.id, project.name)">
+  💬 Чат
+</button>
         </div>
       </div>
     </div>
     <ProjectModal 
-      v-if="modalVisible" 
+      v-if="projectModalVisible" 
       :project="editingProject" 
-      @close="modalVisible=false" 
+      @close="projectModalVisible=false" 
       @saved="onProjectSaved" 
+    />
+    <!-- Модальное окно создания задачи -->
+    <TaskModal
+      v-if="taskModalVisible"
+      :project-id="currentProjectIdForTask"
+      :task="null"
+      @close="taskModalVisible=false"
+      @saved="onTaskSaved"
     />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useProjectsStore } from '..//..//stores/project'
+import { useProjectsStore } from '../..//stores/project'
 import { useRouter } from 'vue-router'
 import ProjectModal from './ProjectModal.vue'
-
+import TaskModal from './TaskModal.vue'   // создадим этот компонент
+import { useChatStore } from '..//../stores/chat'
 const projectsStore = useProjectsStore()
 const router = useRouter()
-const modalVisible = ref(false)
+const projectModalVisible = ref(false)
 const editingProject = ref(null)
 const loadingProjects = ref(false)
+const chatStore = useChatStore()
+// для задачи
+const taskModalVisible = ref(false)
+const currentProjectIdForTask = ref(null)
 
 async function loadProjects() {
   loadingProjects.value = true
@@ -51,7 +68,11 @@ async function loadProjects() {
   }
 }
 
-async function deleteProject(id) {
+function openProjectChat(id, name) {
+  chatStore.openChat('project', id, name)
+}
+
+async function  deleteProject(id) {
   if (confirm('Удалить проект?')) {
     try {
       await projectsStore.delete(id)
@@ -63,20 +84,31 @@ async function deleteProject(id) {
 
 function openCreateModal() {
   editingProject.value = null
-  modalVisible.value = true
+  projectModalVisible.value = true
 }
 
 function openEditModal(project) {
   editingProject.value = project
-  modalVisible.value = true
+  projectModalVisible.value = true
 }
 
 function openProject(id) {
   router.push(`/dashboard/project/${id}`)
 }
 
+function openTaskModalForProject(projectId) {
+  currentProjectIdForTask.value = projectId
+  taskModalVisible.value = true
+}
+
 async function onProjectSaved() {
-  modalVisible.value = false
+  projectModalVisible.value = false
+  await loadProjects()
+}
+
+async function onTaskSaved() {
+  taskModalVisible.value = false
+  // можно не перезагружать проекты, но для обновления числа задач — перезагрузим
   await loadProjects()
 }
 
